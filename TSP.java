@@ -1,94 +1,104 @@
 //import
 import java.io.*;
-
+import java.util.Scanner;
+import java.io.IOException;
 import java.util.HashMap; 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap; 
-public class TSP {
+public class TSP{
     //get weight and value sum of set 
-    public static int getSum (ArrayList<Integer>setWeights){
-        int sum =0;
-        for (int i = 0; i<setWeights.size(); i++){
-            sum = sum+setWeights.get(i);
+    public static int orderCheck(ArrayList<Integer>perm, int n){
+        int criteriaMet = 0;
+        for (int i = 1; i< n; i++){
+            if (perm.get(i)> perm.get(i-1)){
+                criteriaMet = 1;
+            }
         }
-        return sum;
+        return criteriaMet;
     }
-    public static int BestSet(ArrayList<Integer>binaryList, HashMap<String, Integer[]> dict ){
 
-
+    public static int greatestIndexI (ArrayList<Integer>perm, int n){
+        int greatestIndex =0;
+        for (int i = 0; i<(n-1); i++){
+            if (perm.get(i)<perm.get(i+1)){
+                greatestIndex = i;
+            }
+        }
+        return greatestIndex;
+    }
+    public static int greatestIndexJ (ArrayList<Integer>perm, int n, int i){
+        int greatestIndex =0;
+        for (int j = 0; j<n; j++){
+            if (perm.get(i)<perm.get(j)){
+                greatestIndex = j;
+            }
+        }
+        return greatestIndex;
     }
     public static void main(String [] args) {
-        // file
-        String fileName = "knap_input.txt";
+        System.out.println("Command-line arguments:");
+        int n = 0;
+        for (String arg : args) {
+                n = Integer.parseInt(args[0]);
+                System.out.println(n);
+        }
 
-        // This will reference one line at a time
-        String line = null;
-
-        try {
-            //read file 
-            FileReader fileReader = 
-                new FileReader(fileName);
-
-            //  BufferedReader to read lines 
-            BufferedReader bufferedReader = 
-                new BufferedReader(fileReader);
-            //keep a list of keys and values for dictionary of objects
-            List<String> keys = new ArrayList<>();
-            List<Integer> values = new ArrayList<>();
-            //index to determine type of info retrieved (name, weight or value?)
-            int i =0;
-            while((line = bufferedReader.readLine()) != null) {
-                
-                //index =0 then it is the name/key
-                if (i == 0){ 
-                    keys.add(line);
-                    i=1;   
-                }   
-                //other two options are added to values list 
-                else if (i==1){
-                    int result = Integer.parseInt(line);
-                    values.add(result);
-                    i = 2;
-                }
-                else{
-                    int result = Integer.parseInt(line);
-                    values.add(result);
-                    i=0;
-                }
-            }
-            // close file
-            bufferedReader.close();   
-            HashMap<String, Integer[]> dict = new HashMap<String, Integer[]>();
-            int k=0;
-            int n= keys.size();
-            //System.out.println(values.size());
+        
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("sample_perm_output.txt"));
+            ArrayList<Integer> perm = new ArrayList<>();
             for (int l=0; l< n; l++)
             {
-                Integer[] info = {values.get(k), values.get(k+1),i};
-                //System.out.println(keys.get(l));
-                dict.put(keys.get(l), info);
-                k=k+2;
+                perm.add(l+1);
             }
-            ArrayList<Integer> test = new ArrayList<>();
-           
-           //System.out.println(dict.get("TV")[);
-            // int result = dict.get(keys[0])[1];
-            // test.add(dict.get(keys.get(0))[1]);
-            // test.add(1);
-            // System.out.println(weight(test)); 
+            String Line = Integer.toString(perm.get(0));
+            for (int c = 1; c < n; c++){
+                Line = Line + " " + Integer.toString(perm.get(c));
+            }
+            try{
+                    Line= Line + "\n";
+                    writer.write(Line);
+                }
+            catch  (IOException e) {
+                System.out.println("Failed to write to file ");
+            }
+            while (orderCheck(perm,n) == 1){
+                int i = greatestIndexI(perm, n);
+                int j = greatestIndexJ(perm,n,i);
+                int aI = perm.get(i);
+                int aJ = perm.get(j);
+                perm.set(i, aJ);
+                perm.set(j, aI);
+                for (int m = i+1;m < (n-1); m++){
+                    int oldM = perm.get(m);
+                    int newM = perm.get(m+1);
+                    perm.set(m,newM);
+                    perm.set((m+1),oldM);
+
+                }
+                String newLine = Integer.toString(perm.get(0));
+                for (int c = 1; c < n; c++){
+                    newLine = newLine + " " + Integer.toString(perm.get(c));
+                }
+                try{
+                    newLine= newLine + "\n";
+                    writer.write(newLine);
+                }
+                catch  (IOException e) {
+                    System.out.println("Failed to write to file ");
+                }
                 
+            }
+            try {
+                    writer.close();
+                }
+            catch (IOException e) {
+                    System.out.println("Failed to close file ");
+                }
         }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                "Unable to open file '" + fileName + "'");                
-        }
-        catch(IOException ex) {
-            System.out.println(
-                "Error reading file '" + fileName + "'");                  
-        
-        
-        }
-        
+        catch(IOException e) {
+                System.out.println("Failed to create file ");
+            }
     }
 }

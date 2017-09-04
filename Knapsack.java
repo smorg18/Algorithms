@@ -24,7 +24,12 @@ public class Knapsack {
 
         // This will reference one line at a time
         String line = null;
-
+        System.out.println("Command-line arguments:");
+        int weightLimit = 0;
+        for (String arg : args) {
+                n = Integer.parseInt(args[0]);
+                System.out.println(n);
+        }
         try {
             //read file 
             FileReader fileReader = 
