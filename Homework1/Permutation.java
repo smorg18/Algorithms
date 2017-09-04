@@ -71,13 +71,14 @@ public class Permutation {
                 int aJ = perm.get(j);
                 perm.set(i, aJ);
                 perm.set(j, aI);
-                for (int m = i+1;m < (n-1); m++){
-                    int oldM = perm.get(m);
-                    int newM = perm.get(m+1);
-                    perm.set(m,newM);
-                    perm.set((m+1),oldM);
+                //for (int m = i+1;m < (n-1); m++){
+                int m = i+1;
+                int oldM = perm.get(m);
+                int newM = perm.get(n-1);
+                perm.set(m,newM);
+                perm.set((n-1),oldM);
 
-                }
+                //}
                 String newLine = Integer.toString(perm.get(0));
                 for (int c = 1; c < n; c++){
                     newLine = newLine + " " + Integer.toString(perm.get(c));
