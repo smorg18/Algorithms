@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap; 
 public class Knapsack {
-    
+    //get weight and value sum of set 
     public static int getSum (ArrayList<Integer>setWeights){
         int sum =0;
         for (int i = 0; i<setWeights.size(); i++){
@@ -14,7 +14,10 @@ public class Knapsack {
         }
         return sum;
     }
+    public static int BestSet(ArrayList<Integer>binaryList, HashMap<String, Integer[]> dict ){
 
+
+    }
     public static void main(String [] args) {
         // file
         String fileName = "knap_input.txt";
@@ -71,9 +74,9 @@ public class Knapsack {
            
            //System.out.println(dict.get("TV")[);
             // int result = dict.get(keys[0])[1];
-            test.add(dict.get(keys.get(0))[1]);
-            test.add(1);
-            System.out.println(weight(test)); 
+            // test.add(dict.get(keys.get(0))[1]);
+            // test.add(1);
+            // System.out.println(weight(test)); 
                 
         }
         catch(FileNotFoundException ex) {
