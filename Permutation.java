@@ -8,6 +8,16 @@ import java.util.List;
 import java.util.HashMap; 
 public class Permutation {
     //get weight and value sum of set 
+    public static int orderCheck(ArrayList<Integer>perm, int n){
+        int criteriaMet = 0;
+        for (int i = 1; i< n; j++){
+            if (perm[i]> perm[i-1]){
+                criteriaMet = 1;
+            }
+        }
+        return criteriaMet;
+    }
+
     public static int greatestIndexI (ArrayList<Integer>perm, int n){
         int greatestIndex =0;
         for (int i = 0; i<(n-1); i++){
@@ -26,6 +36,8 @@ public class Permutation {
         }
         return greatestIndex;
     }
+
+    
 
     public static int BestSet(ArrayList<Integer>binaryList, HashMap<String, Integer[]> dict ){
 
