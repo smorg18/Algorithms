@@ -38,13 +38,16 @@ public class Permutation {
         return greatestIndex;
     }
     public static void main(String [] args) {
+        System.out.println("Command-line arguments:");
+        int n = 0;
+        for (String arg : args) {
+                n = Integer.parseInt(args[0]);
+                System.out.println(n);
+        }
+
+        
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter("sample_perm_output.txt"));
-                // get info from system
-            
-            
-            Scanner sc = new Scanner(System.in);
-            int n = sc.nextInt();
             ArrayList<Integer> perm = new ArrayList<>();
             for (int l=0; l< n; l++)
             {
