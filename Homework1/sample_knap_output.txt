@@ -1,0 +1,11 @@
+Best set of items to take:
+--------------------------
+Jewelry
+Penny_Collection
+Sandwich
+Prom_Dress
+Laptop
+Algorithms_Textbook
+--------------------------
+Best Value: 1049
+Best Weight: 43

@@ -52,13 +52,13 @@ public class Knapsack {
             }
 //--------------if not too heavy check if best value  --------------------
             if (getSum (setWeight) <= limit){
-                System.out.println(getSum(setValues));
+                //System.out.println(getSum(setValues));
                 int value = getSum(setValues);
                 if (value > greatestValue){
                     greatestValue= value;
                     greatestSet = binarySet;
                     greatestWeight = getSum (setWeight);
-                    System.out.println("here");
+                    //System.out.println("here");
 
                 }
             }
@@ -80,11 +80,11 @@ public class Knapsack {
 
         // This will reference one line at a time
         String line = null;
-        System.out.println("Command-line arguments:");
+        //System.out.println("Command-line arguments:");
         int limit = 0;
         for (String arg : args) {
                 limit = Integer.parseInt(args[0]);
-                System.out.println(limit);
+                //System.out.println(limit);
         }
         try {
             //read file 
@@ -141,9 +141,9 @@ public class Knapsack {
             }
 //-------------------- binary of best set ----------------------------------           
             List<String> set = BestSet(results, dict, numKeys, keys, limit);
-            System.out.println(set.get(2));  
+            //System.out.println(set.get(2));  
             try{
-                BufferedWriter writer = new BufferedWriter(new FileWriter("sample_perm_output.txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("knap_output.txt"));
                 try{
                     writer.write("Best set of items to take:\n--------------------------\n");
                     for(int key = 0; key< numKeys; key++){
@@ -155,7 +155,7 @@ public class Knapsack {
                     }
                     writer.write("--------------------------\n");
                     writer.write("Best Value: "+ set.get(1)+"\n");
-                    writer.write("Best Weight: "+ set.get(2));
+                    writer.write("Best Weight: "+ set.get(2)+"\n");
                     
 
                 
