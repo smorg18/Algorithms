@@ -17,23 +17,41 @@ public class Knapsack {
         }
     }
     //get weight and value sum of set 
-    public static int getSum (ArrayList<Integer>setWeights){
+    public static int getSum (List<Integer>setWeights){
         int sum =0;
         for (int i = 0; i<setWeights.size(); i++){
             sum = sum+setWeights.get(i);
         }
         return sum;
     }
-    public static int BestSet(LinkedList<String>binaryList, HashMap<String, Integer[]> dict ){
+    public static String BestSet(List<String>binaryList, HashMap<String, Integer[]> dict, int keySize, List<String> keys, int limit ){
         List<Integer> setWeight = new ArrayList<>();
         List<Integer> setValues = new ArrayList<>();
         int greatestValue = 0;
         String greatestSet = "";
         for (int i =0; i < binaryList.size(); i++){
             String binarySet = binaryList.get(i);
-            for
+            for(int k = 0; k< keySize; k++){
+                int itemIndex = dict.get(keys.get(k))[2];
+                if (binarySet.charAt(itemIndex) == '1'){
+                    setValues.add(dict.get(keys.get(k))[1]);
+                    setWeight.add(dict.get(keys.get(k))[0]);
+                }
+            }
+            if (getSum (setWeight) <= limit){
+                int value = getSum(setValues);
+                if (value > greatestValue){
+                    greatestValue= value;
+                    greatestSet = binarySet;
+                    System.out.println("here");
+
+                }
+            }
+                
             
         }
+        System.out.println(greatestSet);
+        return greatestSet;
 
     }
     public static void main(String [] args) {
@@ -99,7 +117,8 @@ public class Knapsack {
             }
             ArrayList<Integer> test = new ArrayList<>();
            
-           
+        String set = BestSet(results, dict, numKeys, keys, 20 );
+        System.out.println(set);  
                 
         }
         catch(FileNotFoundException ex) {
