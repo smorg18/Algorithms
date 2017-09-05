@@ -13,12 +13,16 @@ public class TSP {
         int totalCost=0;
         for (int index=0; index<numCities-1; index++){
             int currentCity = perm.get(index);
+            System.out.println(currentCity);
+            
             int destinationCity = perm.get(index+1);
+            System.out.println(destinationCity);
             int cost = dict.get(currentCity).get(destinationCity - 1);
+            System.out.println(cost);
             totalCost= totalCost+ cost;
             if (index == numCities-2){
                 destinationCity = perm.get(0);
-                cost = dict.get(currentCity).get(destinationCity - 1);
+                cost = dict.get(currentCity).get(destinationCity-1);
                 totalCost= totalCost+ cost;
             }
         }   
