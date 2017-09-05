@@ -30,9 +30,10 @@ public class Knapsack {
         return sum;
     }
 //----------find best bang for buck--------------
-    public static String BestSet(List<String>binaryList, HashMap<String, Integer[]> dict, int keySize, List<String> keys, int limit ){
+    public static List<String> BestSet(List<String>binaryList, HashMap<String, Integer[]> dict, int keySize, List<String> keys, int limit ){
         
         int greatestValue = 0;
+        int greatestWeight= 0;
         String greatestSet = "";
 //----------go through each possible set and check values--------------
         for (int i =0; i < binaryList.size(); i++){
@@ -56,6 +57,7 @@ public class Knapsack {
                 if (value > greatestValue){
                     greatestValue= value;
                     greatestSet = binarySet;
+                    greatestWeight = getSum (setWeight);
                     System.out.println("here");
 
                 }
@@ -63,9 +65,12 @@ public class Knapsack {
                 
             
         }
+        List<String> info = new LinkedList<String>();
+        info.add(greatestSet);
+        info.add(Integer.toString(greatestValue));
+        info.add(Integer.toString(greatestWeight));
         //System.out.println(greatestValue);
-        return greatestSet;
-
+        return (info);
     }
 //----------------- Main --------------------
     public static void main(String [] args) {
@@ -79,7 +84,7 @@ public class Knapsack {
         int limit = 0;
         for (String arg : args) {
                 limit = Integer.parseInt(args[0]);
-                System.out.println(n);
+                System.out.println(limit);
         }
         try {
             //read file 
@@ -125,7 +130,7 @@ public class Knapsack {
             //System.out.println(values.size());
 //----------------Create dictioanry with item name as key ------------------------
 //----------------------- weight and price as values -----------------------------
-//--------------------- -----------------------------
+//--------------------- weight= 0 price = 1 and index of set = 2-------------------
 
             for (int l=0; l< numKeys; l++)
             {
@@ -134,10 +139,9 @@ public class Knapsack {
                 dict.put(keys.get(l), info);
                 k=k+2;
             }
-            ArrayList<Integer> test = new ArrayList<>();
-           
-        String set = BestSet(results, dict, numKeys, keys, 43);
-        System.out.println(set);  
+//-------------------- binary of best set ----------------------------------           
+        List<String> set = BestSet(results, dict, numKeys, keys, limit);
+        System.out.println(set.get(2));  
                 
         }
         catch(FileNotFoundException ex) {
