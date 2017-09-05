@@ -1,18 +1,19 @@
 //import
 import java.io.*;
-
+import java.util.LinkedList;
 import java.util.HashMap; 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap; 
 public class Knapsack {
-    public static void printBin(String soFar, int iterations) {
-        if(iterations == 0) {
-        System.out.println(soFar);
-            }
+    public static void binaryPerm(String set, int recursion, List<String> results) {
+
+        if(recursion == 0) {
+            results.add(set);
+        }
         else {
-            printBin(soFar + "0", iterations - 1);
-            printBin(soFar + "1", iterations - 1);
+            binaryPerm(set + "0", recursion - 1, results);
+            binaryPerm(set+ "1", recursion - 1, results);
         }
     }
     //get weight and value sum of set 
@@ -23,13 +24,24 @@ public class Knapsack {
         }
         return sum;
     }
-    // public static int BestSet(ArrayList<Integer>binaryList, HashMap<String, Integer[]> dict ){
+    public static int BestSet(LinkedList<String>binaryList, HashMap<String, Integer[]> dict ){
+        List<Integer> setWeight = new ArrayList<>();
+        List<Integer> setValues = new ArrayList<>();
+        int greatestValue = 0;
+        String greatestSet = "";
+        for (int i =0; i < binaryList.size(); i++){
+            String binarySet = binaryList.get(i);
+            for
+            
+        }
 
-
-    // }
+    }
     public static void main(String [] args) {
         // file
-        printBin("", 4);
+        List<String> results = new LinkedList<String>();
+        binaryPerm("", 4, results);
+        //System.out.println(results.size());
+        
         String fileName = "knap_input.txt";
 
         // This will reference one line at a time
@@ -87,11 +99,7 @@ public class Knapsack {
             }
             ArrayList<Integer> test = new ArrayList<>();
            
-           //System.out.println(dict.get("TV")[);
-            // int result = dict.get(keys[0])[1];
-            // test.add(dict.get(keys.get(0))[1]);
-            // test.add(1);
-            // System.out.println(weight(test)); 
+           
                 
         }
         catch(FileNotFoundException ex) {

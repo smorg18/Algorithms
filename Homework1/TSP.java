@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.HashMap; 
 public class TSP{
     //get weight and value sum of set 
+   
     public static int calcualteCost(ArrayList<Integer>perm, HashMap<String, ArrayList<Integer>> dict, int numCities){
         int totalCost=0;
         for (int index=0; index<numCities; index++){
@@ -48,6 +49,7 @@ public class TSP{
     }
     
     public static void main(String [] args) {
+        
         System.out.println("Command-line arguments:");
         int n = 0;
         for (String arg : args) {
