@@ -6,6 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap; 
 public class Knapsack {
+    public static void printBin(String soFar, int iterations) {
+        if(iterations == 0) {
+        System.out.println(soFar);
+            }
+        else {
+            printBin(soFar + "0", iterations - 1);
+            printBin(soFar + "1", iterations - 1);
+        }
+    }
     //get weight and value sum of set 
     public static int getSum (ArrayList<Integer>setWeights){
         int sum =0;
@@ -14,18 +23,19 @@ public class Knapsack {
         }
         return sum;
     }
-    public static int BestSet(ArrayList<Integer>binaryList, HashMap<String, Integer[]> dict ){
+    // public static int BestSet(ArrayList<Integer>binaryList, HashMap<String, Integer[]> dict ){
 
 
-    }
+    // }
     public static void main(String [] args) {
         // file
+        printBin("", 4);
         String fileName = "knap_input.txt";
 
         // This will reference one line at a time
         String line = null;
         System.out.println("Command-line arguments:");
-        int weightLimit = 0;
+        int n = 0;
         for (String arg : args) {
                 n = Integer.parseInt(args[0]);
                 System.out.println(n);
@@ -66,9 +76,9 @@ public class Knapsack {
             bufferedReader.close();   
             HashMap<String, Integer[]> dict = new HashMap<String, Integer[]>();
             int k=0;
-            int n= keys.size();
+            int numKeys= keys.size();
             //System.out.println(values.size());
-            for (int l=0; l< n; l++)
+            for (int l=0; l< numKeys; l++)
             {
                 Integer[] info = {values.get(k), values.get(k+1),i};
                 //System.out.println(keys.get(l));
