@@ -140,8 +140,41 @@ public class Knapsack {
                 k=k+2;
             }
 //-------------------- binary of best set ----------------------------------           
-        List<String> set = BestSet(results, dict, numKeys, keys, limit);
-        System.out.println(set.get(2));  
+            List<String> set = BestSet(results, dict, numKeys, keys, limit);
+            System.out.println(set.get(2));  
+            try{
+                BufferedWriter writer = new BufferedWriter(new FileWriter("sample_perm_output.txt"));
+                try{
+                    writer.write("Best set of items to take:\n--------------------------\n");
+                    for(int key = 0; key< numKeys; key++){
+                    int itemIndex = dict.get(keys.get(key))[2];
+                    //System.out.println(itemIndex);
+                        if (set.get(0).charAt(itemIndex) == '1'){
+                            writer.write(keys.get(key)+"\n");
+                        }
+                    }
+                    writer.write("--------------------------\n");
+                    writer.write("Best Value: "+ set.get(1)+"\n");
+                    writer.write("Best Weight: "+ set.get(2));
+                    
+
+                
+                
+                    
+                }
+                catch  (IOException e) {
+                    System.out.println("Failed to write to file ");
+                }
+                try {
+                    writer.close();
+                }
+                catch (IOException e) {
+                    System.out.println("Failed to close file ");
+                }
+        }
+        catch(IOException e) {
+            System.out.println("Failed to create file ");
+        }
                 
         }
         catch(FileNotFoundException ex) {
