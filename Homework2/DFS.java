@@ -22,40 +22,57 @@ import java.util.HashMap;
 // go to each neighbor and call dfs for each if marked unvisited 
 //visits recursively all the 
 //unvisited vertices connected to vertex v and adds to stack add count 
-if v is marked with 0 
-dfs(v)
 
 
 
 
 //------------------ DFS --------------------
-    public static int DFS (int v, vertexStack, int visited []){
+    public static int DFS (Integer v, Stack vertexStack, Integer marked[][] , Integer neighbors [][] ){
         //verticie marked as visited and with count of order visited
         // also kept in stack for  cyclic checking 
-        visited [v][0] = 1;
-        visited [v][1] = count; 
+        marked [v][0] = 1;
+        count ++; 
+        marked [v][1] = count; 
+
 
         //recurion for all adjacent neighbors 
         //if adjacent neighbor already visited and in the stack than cyclic
-
-        for (adjI = 0; adjI< v[0].size(); adjI++){
+        int adjacentVertexes = neighbors [v]
+        for (adjI = 0; adjI< .size(); adjI++){
             int adjV = v.get(adjI); 
             if (visited[adjV][0] == 0){
-                DFS(adjV);
+                if (DFS(.....)== 1){
+                    return 1;
+                }
             }
+            else if (vertexStack[adjV] ==1){
+                return 1; 
+
+            } 
         }
-        
-
-
-        
+            vertexStack.pop(v)
+            
+            
     }
+        
+
+
+        
+
 
 
 
 
 //------------ IS CYCLIC OR NAH -------------
     public static int CyclicChecker (ArrayList<Integer>perm, int n){
-        
+        for (int v= 0; v< len; v++){
+            if (visited[v]==0){
+                if (DFS() == 1){
+                    return 1;
+                }
+            }
+        }
+        return 0; 
     }
 
 
