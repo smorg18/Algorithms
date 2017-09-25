@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 
 
-dfs(v) 
+
 
 //Implements a depth-first search traversal of a given graph
 //Input: Graph G = ⟨V , E⟩ 
@@ -30,6 +30,22 @@ dfs(v)
 
 //------------------ DFS --------------------
     public static int DFS (int v, vertexStack, int visited []){
+        //verticie marked as visited and with count of order visited
+        // also kept in stack for  cyclic checking 
+        visited [v][0] = 1;
+        visited [v][1] = count; 
+
+        //recurion for all adjacent neighbors 
+        //if adjacent neighbor already visited and in the stack than cyclic
+
+        for (adjI = 0; adjI< v[0].size(); adjI++){
+            int adjV = v.get(adjI); 
+            if (visited[adjV][0] == 0){
+                DFS(adjV);
+            }
+        }
+        
+
 
         
     }
