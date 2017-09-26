@@ -1,4 +1,4 @@
-//SAVANNAH MORGAN
+//SAVANNAH MORGAN :)
 //import
 import java.io.*;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.Arrays; 
 
-public class DFS {
+public class DFSu {
     public static int count = -1; 
 //Implements a depth-first search traversal of a given graph
 //Input: Graph G = ⟨V , E⟩ 
@@ -25,7 +25,7 @@ public class DFS {
 
 
 //------------------ DFS --------------------
-    public static int DFS (Integer v, Stack vertexStack, Integer marked[] ,  HashMap<Integer, List<Integer>> verts ){
+    public static int DFS (Integer v, Integer parent, Stack vertexStack, Integer marked[] ,  HashMap<Integer, List<Integer>> verts ){
         //verticie marked as visited 
         marked[v]= 1;
         count ++; 
@@ -36,14 +36,14 @@ public class DFS {
         //if adjacent neighbor already visited and in the stack then cyclic
         for (int adjI= 0; adjI< neighbors.size(); adjI++){  
             Integer adjV = neighbors.get(adjI); 
-            if (marked[adjV] == 0){
+            if (marked[adjV] == 0 ){
                 //recursion if not marked follow the neighbor path 
-                if (DFS(adjV, vertexStack, marked, verts)== 1){
+                if (DFS(adjV, v, vertexStack, marked, verts)== 1){
                         
                     return 1;
                 }
             }
-            else if (vertexStack.search(adjV) != -1){
+            else if (adjV != parent && vertexStack.search(adjV) != -1){
                 return 1; 
             } 
             
@@ -69,7 +69,8 @@ public class DFS {
         for (int v= 0; v< numOfVerts; v++){
             if (marked[v]==0){
                 // if returns 1 then a cycle found so return 1 no cycle and continue 
-                if (DFS(v,vertexStack, marked,verts) == 1){
+                Integer parent = - 1;
+                if (DFS(v,parent, vertexStack, marked,verts) == 1){
                     return 1;
                 }
             }
@@ -105,7 +106,6 @@ public class DFS {
             HashMap<Integer,  List<Integer>> verts = new HashMap<Integer, List<Integer>>();
             int len =0;
             int v = -1;
-            
             while((line = bufferedReader.readLine()) != null) {
                 v++;
                 String[] newLine = line.split("\\s+"); 
@@ -119,7 +119,6 @@ public class DFS {
                     }
                 }
                 //initialize amrk 
-                
                 //add verticie and neighbors/adjacent verticices to dictionary verts
                 verts.put( v, neighbors);
             }
@@ -127,8 +126,6 @@ public class DFS {
             for ( int m= 0; m<= v; v++){
                 marked[m] = 0;
             }
-                   
-        
             //create a stack for checking 
 
             Stack vertexStack = new Stack();
