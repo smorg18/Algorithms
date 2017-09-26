@@ -124,7 +124,7 @@ public class DFS {
                 verts.put( v, neighbors);
             }
             Integer[] marked = new Integer[v+1];
-            for ( int m= 0; m<= v; v++){
+            for ( int m= 0; m<= v; m++){
                 marked[m] = 0;
             }
                    

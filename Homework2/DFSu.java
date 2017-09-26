@@ -28,13 +28,17 @@ public class DFSu {
     public static int DFS (Integer v, Integer parent, Stack vertexStack, Integer marked[] ,  HashMap<Integer, List<Integer>> verts ){
         //verticie marked as visited 
         marked[v]= 1;
+        
         count ++; 
         //marked [v][1] = count; 
         vertexStack.push(v);
         List<Integer> neighbors = verts.get(v);
+        //int parent = v; 
         //recursion for all adjacent neighbors 
         //if adjacent neighbor already visited and in the stack then cyclic
+        //System.out.println ("here");
         for (int adjI= 0; adjI< neighbors.size(); adjI++){  
+            //System.out.println ("here");
             Integer adjV = neighbors.get(adjI); 
             if (marked[adjV] == 0 ){
                 //recursion if not marked follow the neighbor path 
@@ -44,6 +48,8 @@ public class DFSu {
                 }
             }
             else if (adjV != parent && vertexStack.search(adjV) != -1){
+                //System.out.println (parent);
+                //System.out.println (v);
                 return 1; 
             } 
             
@@ -66,7 +72,9 @@ public class DFSu {
 //------------ IS CYCLIC OR NAH -------------
     public static int CyclicChecker (int numOfVerts, Stack vertexStack, Integer marked[] ,  HashMap<Integer, List<Integer>> verts){
         //for each verticie call dfs to chec all possibilities of a cycle
+        
         for (int v= 0; v< numOfVerts; v++){
+            //System.out.println("CYCLE");
             if (marked[v]==0){
                 // if returns 1 then a cycle found so return 1 no cycle and continue 
                 Integer parent = - 1;
@@ -106,8 +114,10 @@ public class DFSu {
             HashMap<Integer,  List<Integer>> verts = new HashMap<Integer, List<Integer>>();
             int len =0;
             int v = -1;
+            //Integer[] marked = new Integer[500];
             while((line = bufferedReader.readLine()) != null) {
                 v++;
+                //System.out.println(v);
                 String[] newLine = line.split("\\s+"); 
                 len = newLine.length;
                 List<Integer> neighbors = new ArrayList<>(); 
@@ -118,18 +128,20 @@ public class DFSu {
                         neighbors.add(i);
                     }
                 }
+                //marked[v] =0;
                 //initialize amrk 
                 //add verticie and neighbors/adjacent verticices to dictionary verts
                 verts.put( v, neighbors);
             }
             Integer[] marked = new Integer[v+1];
-            for ( int m= 0; m<= v; v++){
+            for ( int m= 0; m<= v; m++){
                 marked[m] = 0;
             }
             //create a stack for checking 
 
             Stack vertexStack = new Stack();
             int numOfVerts = v+1;
+            //System.out.println(numOfVerts);
             //check for cycle
             int cycleResult = CyclicChecker(numOfVerts,vertexStack, marked, verts);
             
