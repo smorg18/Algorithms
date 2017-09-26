@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.Arrays; 
 
 public class DFS {
     public static int count = -1; 
@@ -25,32 +26,30 @@ public class DFS {
 
 //------------------ DFS --------------------
     public static int DFS (Integer v, Stack vertexStack, Integer marked[] ,  HashMap<Integer, List<Integer>> verts ){
-        //verticie marked as visited and with count of order visited
-        // also kept in stack for  cyclic checking 
-        //marked [v][0] = 1;
+        //verticie marked as visited 
         marked[v]= 1;
         count ++; 
         //marked [v][1] = count; 
         vertexStack.push(v);
         List<Integer> neighbors = verts.get(v);
-        System.out.println(neighbors.size());
-        //recurion for all adjacent neighbors 
-        //if adjacent neighbor already visited and in the stack than cyclic
-        for (int adjI= 0; adjI< neighbors.size(); adjI++){
+        //recursion for all adjacent neighbors 
+        //if adjacent neighbor already visited and in the stack then cyclic
+        for (int adjI= 0; adjI< neighbors.size(); adjI++){  
             Integer adjV = neighbors.get(adjI); 
             if (marked[adjV] == 0){
+                //recursion if not marked follow the neighbor path 
                 if (DFS(adjV, vertexStack, marked, verts)== 1){
-                     System.out.println("here"+adjV);
+                        
                     return 1;
                 }
             }
             else if (vertexStack.search(adjV) != -1){
                 return 1; 
-
             } 
+            
         }
         vertexStack.pop();
-        vertexStack.remove(v);
+        vertexStack.remove(v); 
         return 0;
             
             
@@ -66,10 +65,10 @@ public class DFS {
 
 //------------ IS CYCLIC OR NAH -------------
     public static int CyclicChecker (int numOfVerts, Stack vertexStack, Integer marked[] ,  HashMap<Integer, List<Integer>> verts){
-        
+        //for each verticie call dfs to chec all possibilities of a cycle
         for (int v= 0; v< numOfVerts; v++){
             if (marked[v]==0){
-                
+                // if returns 1 then a cycle found so return 1 no cycle and continue 
                 if (DFS(v,vertexStack, marked,verts) == 1){
                     return 1;
                 }
@@ -93,7 +92,7 @@ public class DFS {
         }
         
         
-        
+        // read file
         try {
             //read file 
             String line = null;
@@ -102,7 +101,7 @@ public class DFS {
             //  BufferedReader to read lines 
             BufferedReader bufferedReader = new BufferedReader(fileReader);
         
-            //index to determine type of info retrieved (name, weight or value?)
+            //make a dictionary with vertice being key and adj verticies as the values 
             HashMap<Integer,  List<Integer>> verts = new HashMap<Integer, List<Integer>>();
             int len =0;
             int v = -1;
@@ -111,40 +110,47 @@ public class DFS {
                 v++;
                 String[] newLine = line.split("\\s+"); 
                 len = newLine.length;
-                //System.out.println(len);
                 List<Integer> neighbors = new ArrayList<>(); 
                 //int k = -1;
                 for (int i = 0; i<len; i++){
                     if (Integer.parseInt(newLine[i]) == 1 ){
                         //add to array neighbors
-                        //k++;
                         neighbors.add(i);
                     }
                 }
                 //initialize amrk 
                 marked[v] = 0;
-                //marked[v] = -1; 
-                // add v(vertex) as key and add neighbor as value  
+                //add verticie and neighbors/adjacent verticices to dictionary verts
                 verts.put( v, neighbors);
             }
         
                    
         
-        
+            //create a stack for checking 
+
             Stack vertexStack = new Stack();
             int numOfVerts = v+1;
+            //check for cycle
             int cycleResult = CyclicChecker(numOfVerts,vertexStack, marked, verts);
-            //call CYCLIC?
-            //Print statement 
+            
+            //if there is a cycle print cycle and the stack to get the cycle path 
             if (cycleResult==1){
                 System.out.println("CYCLE");
+                int numInPath= vertexStack.size();
+                    String path = "";
+                    path = path + vertexStack.pop();
+                    while (vertexStack.empty()==false){
+                        path= path+ " - "+vertexStack.pop();
+                        numInPath --;
+                    }
+                    //print cycle
+                    System.out.println(path); 
             }
-            //end program 
-//(Integer v, Stack vertexStack, Integer marked[][] ,  HashMap<Integer, List<Integer>> verts ){
+            //no cycle if returns 0 
             if (cycleResult==0){
                 System.out.println("NO CYCLE");
             }
-            // close file
+            ///end program 
             bufferedReader.close(); 
         }
     
