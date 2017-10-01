@@ -11,10 +11,9 @@ import java.util.LinkedList;
 
 //public class starts
 public class BruteForce {
-    
+    //global variable array 
     public static ArrayList<ArrayList<Integer>> perms = new ArrayList<ArrayList<Integer>>();
-    //public static int acc =0;
-    //public static int[] minPerm = new int[100000];
+
 
     static void permute(int[] a, int k) //int firstP ) 
     {
