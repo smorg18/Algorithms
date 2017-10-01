@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.LinkedList;
 
 
-
+//public class starts
 public class BruteForce {
     
     public static ArrayList<ArrayList<Integer>> perms = new ArrayList<ArrayList<Integer>>();
